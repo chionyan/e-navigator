@@ -1,5 +1,6 @@
 class NoticeMailer < ApplicationMailer
-
+  
+  default from: "user@gmail.com"
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -8,6 +9,6 @@ class NoticeMailer < ApplicationMailer
   def sendmail_confirm
     @greeting = "Hi"
 
-    mail to: "to@example.org"
+    mail to: "user@sample.com", subject: "ActionMailer test"
   end
 end

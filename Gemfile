@@ -59,3 +59,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'devise-bootstrap-views'
+
+# .env から環境変数を読み込み
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+gem 'gem-that-requires-env-variables'
