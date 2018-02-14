@@ -1,0 +1,20 @@
+<h3> 現在の面接日程</h3>
+<% if user.approvaldate %>
+    <p><strong><%= user.approvaldate %></strong> に面接が設定されています。</p>
+<% else %>
+    <p>面接日程は設定されていません。</p>
+<% end %>
+<hr>
+
+<% if interviews.count > 0 %>
+    <p>面接日程を変更する場合は以下から選んでください。</p>
+    <% interviews.each do |interview| %>
+        <%= form_tag(user_interview_path(user, interview), method: :put, data: { confirm: interview.interview_date_format+'で面接を確定していいですか？' }) do %>
+            <%= hidden_field_tag 'interview[interview_status]', '承認' %>
+            <%= submit_tag interview.interview_date_format, class: 'btn btn-primary' %>
+        <% end %>
+        <br>
+    <% end %>
+<% else %>
+    <p>現在、面接希望日程は登録されていません。</p>
+<% end %>

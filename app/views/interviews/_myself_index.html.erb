@@ -1,0 +1,37 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>面接開始時間</th>
+      <th>承認状態</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% interviews.each do |interview| %>
+    <% disabled = "disabled" if interview.interview_status !='保留' %>
+    <tr>
+      <td>
+        <div class="text-center"><%= interview.interview_date_format %></div>
+      </td>
+      <td>
+        <div class="text-center"><%= interview.interview_status %></div>
+      </td>
+      <td>
+        <div class="text-center">
+        <%= form_tag(edit_user_interview_path(user, interview), method: :get) do %>
+          <%= submit_tag '編集', class: 'btn btn-info', disabled: disabled %>
+        <% end %>
+        </div>
+      </td>
+      <td>
+        <div class="text-center">
+        <%= form_tag(user_interview_path(user, interview), method: :delete, data: { confirm: '本当に削除しますか？' }) do %>
+          <%= submit_tag '削除', class: 'btn btn-danger', disabled: disabled %>
+        <% end %>
+        </div>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to '新規面接作成', new_user_interview_path(user), class: "btn btn-primary" %>

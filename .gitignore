@@ -148,3 +148,7 @@ build-iPhoneSimulator/
 ## Environment normalization:
 /.bundle/
 /lib/bundler/man/
+
+/.vscode/launch.json/
+[core]
+    excludesfile = /Users/your_user_name/.gitignore_global

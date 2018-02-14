@@ -17,9 +17,9 @@ class User < ApplicationRecord
   end
 
   def approvaldate
-    interview_status=interviews.where("interview_status = '承認'")
-    if interview_status.count>0
-      interview_status.limit(1).interview_date_format
+    approval_interview = interviews.find_by(interview_status: "承認")
+    if approval_interview
+      approval_interview.interview_date_format
     else
       nil
     end

@@ -4,7 +4,11 @@ class InterviewsController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @interviews = @user.interviews.order('created_at DESC')
+    if @user == current_user
+      @interviews = @user.interviews.order('interview_date DESC')
+    else
+      @interviews = @user.interviews.where.not(interview_status:"承認").order('interview_date DESC')
+    end
   end
 
   def show
@@ -18,7 +22,7 @@ class InterviewsController < ApplicationController
     @interview = @user.interviews.build(interview_params)
     if @interview.save
       flash[:success] = '面接が作成されました'
-      redirect_to @interview
+      redirect_to user_interview_path(@user, @interview)
     else
       flash.now[:danger] = '面接が作成されませんでした'
       render :new
@@ -29,9 +33,13 @@ class InterviewsController < ApplicationController
   end
 
   def update
+    if @user != current_user
+      @interviews.update_all("interview_status='却下'")
+    end
+
     if @interview.update(interview_params)
       flash[:success] = '面接が更新されました'
-      redirect_to @interview
+      redirect_to user_interview_path(@user, @interview)
     else
       flash.now[:danger] = '面接が更新されませんでした'
       render :edit
@@ -47,16 +55,17 @@ class InterviewsController < ApplicationController
   private
 
   def set_user
-    @user = current_user
+    @user = User.find(params[:user_id])
   end
 
-  def set_interview
-    set_user
-    @interview = @user.interviews.find(params[:id])
+  def set_interview  
+    @interview = Interview.find(params[:id])
+    @user = @interview.user
+    @interviews =  @user.interviews
   end
 
   def interview_params
-    params.require(:interview).permit(:interview_date, :interview_status)
+    params.fetch(:interview, {}).permit(:interview_date, :interview_status)
   end
 
 end

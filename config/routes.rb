@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   root 'toppages#index'
   
-  resources :interviews, only: [:index, :show]
+  resources :interviews, only: [:index]
 
   resources :users, only: [:index, :show] do
     resources :interviews

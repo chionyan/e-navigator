@@ -8,4 +8,5 @@ class Interview < ApplicationRecord
   def interview_date_format
     interview_date.to_s(:published_on)
   end
+  
 end
