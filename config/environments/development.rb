@@ -33,10 +33,10 @@ Rails.application.configure do
     :enable_starttls_auto => true,
     :address => 'smtp.gmail.com',
     :port => '587',
-    :domain => 'smtp.gmail.com',
+    :domain => 'gmail.com',
     :authentication => 'plain',
-    :user_name => 'ユーザー名@gmail.com',
-    :password => 'gmailパスワード'
+    :user_name => ENV['SENDER_EMAIL_ADDRESS'],
+    :password => ENV['SENDER_EMAIL_PASS']
   }
 
   config.action_mailer.perform_caching = false

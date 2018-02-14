@@ -44,6 +44,11 @@ class InterviewsController < ApplicationController
       flash.now[:danger] = '面接が更新されませんでした'
       render :edit
     end
+
+    if @user != current_user
+      @mail = NoticeMailer.sendmail_confirm(@user).deliver
+    end
+
   end
 
   def destroy

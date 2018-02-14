@@ -5,6 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# .env から環境変数を読み込み
+gem 'dotenv-rails', require: 'dotenv/rails-now'
+#gem 'gem-that-requires-env-variables'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
@@ -59,7 +62,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'devise-bootstrap-views'
-
-# .env から環境変数を読み込み
-gem 'dotenv-rails', require: 'dotenv/rails-now'
-gem 'gem-that-requires-env-variables'
