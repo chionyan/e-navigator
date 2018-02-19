@@ -1,9 +1,10 @@
 class InterviewsController < ApplicationController
-  before_action :set_user, only: [:new, :create]
+  before_action :set_user, only: [:new, :create, :order]
   before_action :set_interview, only: [:show, :edit, :update, :destroy]
 
   def index
     @user = User.find(params[:user_id])
+    @users = User.where.not(id: current_user.id)
     if @user == current_user
       @interviews = @user.interviews.order('interview_date DESC')
     else
@@ -46,7 +47,7 @@ class InterviewsController < ApplicationController
     end
 
     if @user != current_user
-      @mail = NoticeMailer.sendmail_confirm(@user).deliver
+      InterviewMailer.apply(@user).deliver
     end
 
   end
@@ -55,6 +56,17 @@ class InterviewsController < ApplicationController
     @interview.destroy
     flash[:success] = '面接が削除されました'
     redirect_to user_interviews_path(@user)
+  end
+
+  def order
+    @dst_user = User.find(params[:interviewer_id])
+    if InterviewMailer.order(@user,@dst_user).deliver
+      flash[:success] = '申請が完了しました'
+      redirect_to user_interviews_path(@user)
+    else
+      flash.now[:danger] = '申請に失敗しました'
+      render :index
+    end
   end
 
   private
