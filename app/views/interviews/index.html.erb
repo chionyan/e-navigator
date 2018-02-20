@@ -1,7 +1,7 @@
 <h1><%= @user.username %>さんの面接一覧</h1>
 
 <% if @user==current_user %>
-<%= render 'myself_index', user: @user, interviews: @interviews %>
+<%= render 'myself_index', user: @user, interviews: @interviews, users: @users %>
 <% else %>
 <%= render 'other_index', user: @user, interviews: @interviews %>
 <% end %>

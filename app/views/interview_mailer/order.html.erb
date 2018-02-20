@@ -1,0 +1,9 @@
+<p><%= @dst_user.username %>様</p>
+<br>
+<p>お世話になっております。e-Navigatorです。</p>
+<p><b><%= @src_user.username %></b>様から面接日程承認依頼が来ております。</p>
+<p>面接日程が<b><%= @approvaldate %></b>でよろしければ、<br>
+<%= @src_user.email %>に面接日程承認の旨をご連絡ください。</p>
+<p>何卒よろしくお願いします。</p>
+<br>
+<%= render :partial => "footer" %>

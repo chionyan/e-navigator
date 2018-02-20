@@ -34,4 +34,18 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to '新規面接作成', new_user_interview_path(user), class: "btn btn-primary" %>
+
+<div class="row">
+  <div class="col-sm-10 col-xs-12">
+    <div class="form-group">
+    <%= form_tag(order_user_interviews_path, method: "post", class: 'form-inline') do %>
+      <%= select_tag 'interviewer_id', options_for_select(users.map{|user| [user.email, user.id]}), class: 'form-control' %>
+      <%= submit_tag '申請', class: 'btn btn-success' %>
+    <% end %>
+    </div>
+  </div>
+  
+  <div class="col-sm-2 col-xs-12">
+    <%= link_to '新規面接作成', new_user_interview_path(user), class: "btn btn-primary" %>
+  </div>
+</div>
