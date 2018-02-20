@@ -1,7 +1,6 @@
 require 'dotenv'
 Dotenv.load
 
-#class NoticeMailer < ApplicationMailer
 class InterviewMailer < ApplicationMailer
   default from: ENV['SENDER_EMAIL_ADDRESS']
   # Subject can be set in your I18n file at config/locales/en.yml
