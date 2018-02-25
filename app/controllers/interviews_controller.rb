@@ -1,9 +1,8 @@
 class InterviewsController < ApplicationController
-  before_action :set_user, only: [:new, :create, :order]
+  before_action :set_user, only: [:index, :new, :create, :order]
   before_action :set_interview, only: [:show, :edit, :update, :destroy]
 
   def index
-    @user = User.find(params[:user_id])
     @users = User.where.not(id: current_user.id)
     if @user == current_user
       @interviews = @user.interviews.order('interview_date DESC')
