@@ -8,16 +8,18 @@ class InterviewMailer < ApplicationMailer
   #
   #   en.notice_mailer.sendmail_confirm.subject
   #
-  def apply(user)
-    @user = user
-    @approvaldate = @user.approvaldate
-    mail to: @user.email, subject: "面接日程決定のお知らせ"
+
+  def apply(interviewee,interviewer)
+    @interviewee = interviewee
+    @interviewer = interviewer
+    mail(to: @interviewee.email + "," + @interviewer.email, subject: '面接日程承認のお知らせ')
   end
 
-  def order(src_user,dst_user)
-    @src_user = src_user
-    @dst_user = dst_user
-    @approvaldate = @src_user.approvaldate
-    mail to: @dst_user.email, subject: "面接日程承認依頼のお知らせ"
+  def order(interviewee,interviewer)
+    @interviewee = interviewee
+    @interviewer = interviewer
+    @interviewee_url = "https://e-navigator-chionyan.herokuapp.com/users/" + @interviewee.id.to_s + "/interviews"
+    mail(to: @interviewer.email, subject: '面接日程承認依頼のお知らせ')
   end
+
 end
